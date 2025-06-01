@@ -37,15 +37,15 @@ public class GroceryServiceImpl implements GroceryService
 	 Optional<Category> category = categoryRepository.findById(groceryItemsDto.getCategoryId()); 
 	        if(category.isPresent())
 	        {	        	
-		        	GroceryItems groceryItems = new GroceryItems();
-		 		    groceryItems.setName(groceryItemsDto.getName());
-		 		    groceryItems.setUnit(groceryItemsDto.getUnit());
-		 		    groceryItems.setPrice(groceryItemsDto.getPrice());
-		 		    groceryItems.setItemDescription(groceryItemsDto.getDescription());
+		    GroceryItems groceryItems = new GroceryItems();
+		      groceryItems.setName(groceryItemsDto.getName());
+		      groceryItems.setUnit(groceryItemsDto.getUnit());
+	     	      groceryItems.setPrice(groceryItemsDto.getPrice());
+	     	      groceryItems.setItemDescription(groceryItemsDto.getDescription());
 		 		   
-			 		  groceryItems.setCategory(category.get());
+			   groceryItems.setCategory(category.get());
 			 		   
-			 		   groceryItemsRepository.save(groceryItems);
+			   groceryItemsRepository.save(groceryItems);
 	        }
 	        else
 	        {
