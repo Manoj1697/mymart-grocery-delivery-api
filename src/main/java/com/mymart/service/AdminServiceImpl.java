@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.mymart.dto.AdminDto;
 import com.mymart.entity.Admin;
+import com.mymart.exception.DuplicateEntryException;
 import com.mymart.repository.AdminRepository;
 
 @Service
@@ -14,15 +15,19 @@ public class AdminServiceImpl implements AdminService
 	AdminRepository adminRepository;
 	
 	@Override
-	public void addAdminInfo(AdminDto adminDto) 
+	public Long addAdminInfo(AdminDto adminDto) 
 	{
-	   Admin admin = new Admin();
-	    admin.setWorkMail(adminDto.getWorkMail());
-	    admin.setName(adminDto.getName());
-	    admin.setContact(adminDto.getContact());
-	    admin.setPassword(adminDto.getPassword());
+		 if(adminRepository.existsByWorkMail(adminDto.getWorkMail()))
+			 throw new DuplicateEntryException("Work-Mail Already Exist!!");
+		 
+	    Admin admin = new Admin();
+	      admin.setWorkMail(adminDto.getWorkMail());
+	      admin.setName(adminDto.getName());
+	      admin.setContact(adminDto.getContact());
+	      admin.setPassword(adminDto.getPassword());
 		
-	     adminRepository.save(admin);
+	        Admin newAdmin = adminRepository.save(admin);
+	        return newAdmin.getAdminId();
 	     
 	}
 

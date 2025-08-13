@@ -1,25 +1,29 @@
 package com.mymart.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mymart.dto.AdminDto;
-import com.mymart.service.AdminServiceImpl;
+import com.mymart.service.AdminService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/admin")
 public class AdminController 
 {
 	@Autowired
-	AdminServiceImpl adminServiceImpl;
+	AdminService adminService;
 	
    @PostMapping("/add-info")	
-   public String addAdminInfo(@RequestBody AdminDto adminDto)
+   public ResponseEntity<String> addAdminInfo(@Valid @RequestBody AdminDto adminDto)
    {   
-	    adminServiceImpl.addAdminInfo(adminDto);
-	    return "New Admin added!!";
+	    Long newAdmin =adminService.addAdminInfo(adminDto);
+	    return new ResponseEntity<String>("Admin created with ID :"+newAdmin,HttpStatus.CREATED);
    }
 }

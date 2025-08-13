@@ -1,7 +1,5 @@
 package com.mymart.entity;
 
-import java.util.Optional;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
